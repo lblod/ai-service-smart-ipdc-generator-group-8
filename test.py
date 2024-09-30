@@ -128,4 +128,4 @@ wegenis wordt geregeld, wordt goedgekeurd zoals in bijlage toegevoegd.
 if __name__ == '__main__':
     with Timer() as t:
         print(extract_ipdc_data(text=TEST_DATA))
-    print(f'Generating response from the LLM took: {t.elapsed} seconds')
+    print(f'Generating responses from the LLM took: {t.elapsed} seconds')

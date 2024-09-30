@@ -6,7 +6,7 @@ from langchain_core.prompts import PromptTemplate
 from src.llm.extract_cfg import EXTRACTION_PROMPT, FORMAT_INSTRUCTIONS_KEY, TEXT_KEY
 from src.models import IPDCData
 
-LLM = OllamaLLM(model='mistral-nemo', base_url='ollama.hackathon-ai-8.s.redhost.be')
+LLM = OllamaLLM(model='mistral-nemo', base_url='ollama.hackathon-ai-8.s.redhost.be', temperature=0.0)
 
 def _create_pydantic_chain(pydantic_object: Type[BaseModel], prompt: str):
     output_parser = PydanticOutputParser(pydantic_object=pydantic_object)

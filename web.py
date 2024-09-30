@@ -1,8 +1,11 @@
-from src.llm.extract import extract_ipdc_data
-from src.models import ProcessingRequest, ProcessingResponse
+from src.models import ProcessingRequest
+from pydantic import BaseModel
+
+
+class Result(BaseModel):
+    description: str
 
 
 @app.get("/generate-ipdc")
 def generated_ipdc(request: ProcessingRequest):
-    ipdc_data = extract_ipdc_data(text=request.decision_text)
-    return ProcessingResponse(entry=ipdc_data)
+    return Result(description='Maatregelen tijdens de crisisperiode voor handelaars: gratis aanvraag voor inname en plaatsing van verkeersborden door gemeentelijke diensten.')

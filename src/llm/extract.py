@@ -4,7 +4,7 @@ from langchain.output_parsers import PydanticOutputParser
 from typing import Type
 from langchain_core.prompts import PromptTemplate
 from src.llm.extract_cfg import EXTRACTION_PROMPT, FORMAT_INSTRUCTIONS_KEY, TEXT_KEY
-from src.models import IPDCEntity
+from src.models import IPDCData
 
 LLM = OllamaLLM(model='mistral-nemo', base_url='ollama.hackathon-ai-8.s.redhost.be')
 
@@ -14,6 +14,6 @@ def _create_pydantic_chain(pydantic_object: Type[BaseModel], prompt: str):
     return prompt_template | LLM | output_parser
 
 
-def extract_ipdc_entity(text: str) -> IPDCEntity:
-    extract_chain = _create_pydantic_chain(pydantic_object=IPDCEntity, prompt=EXTRACTION_PROMPT)
+def extract_ipdc_data(text: str) -> IPDCData:
+    extract_chain = _create_pydantic_chain(pydantic_object=IPDCData, prompt=EXTRACTION_PROMPT)
     return extract_chain.invoke({TEXT_KEY: text})

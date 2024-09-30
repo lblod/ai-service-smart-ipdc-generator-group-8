@@ -2,3 +2,4 @@ fastapi
 pydantic
 langchain
 langchain-ollama
+contexttimer

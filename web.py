@@ -12,5 +12,5 @@ def mock_ipdc():
 
 
 @app.post("/generate-ipdc")
-def generated_ipdc(request: ProcessingRequest) -> IPDCEntry:
-    return extract_ipdc_data(text=request.decision_text)
+async def generated_ipdc(request: ProcessingRequest) -> IPDCEntry:
+    return await extract_ipdc_data(text=request.decision_text)

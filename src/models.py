@@ -75,6 +75,8 @@ class IPDCEntry(BaseModel):
     procedure: List[IPDCProcedure] = []
     cost: List[IPDCCost] = []
     condition: List[IPDCCondition] = []
+    theme: List[str]
+    type: List[str]
 
 
 class ProcessingResponse(BaseModel):

@@ -44,7 +44,8 @@ async def call_classifier(uri: str, text: str) -> List[str]:
     }
     async with aiohttp.ClientSession() as session:
         async with session.post(uri, json=body) as response:
-            return [pred['label'] for pred in response.json().get("prediction", [])]
+            data = await response.json()
+            return [pred['label'] for pred in data.get("prediction", [])]
 
 
 

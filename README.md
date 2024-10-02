@@ -16,6 +16,31 @@ The process of AI extraction / translation is as follows:
 3. Translate into final output
     * All received objects are used to populate the final output that aligns with the IPDC data model object
 
+## LLM steps taken
+
+### Mistral-Nemo & More complex data structure prompts
+Our first attempt involved using Mistral Nemo with complex data structure prompts. This approach provided decent results but also presented several challenges.
+   * Invalid JSON responses happened
+   * Responses were sometimes mixed between Dutch and English
+   * The content sometimes strayed from the intended purpose, with hallucinations and inconsistencies
+   * Fully open-source model and relatively fast response time
+
+### Transition to Llama 3.1 (70b)
+We tested Llama 3.1 (70b), which yielded significantly better results but still had drawbacks.
+   * The content was more aligned with the input text.
+   * While accuracy improved overall, it wasn’t perfect but still a notable step forward
+   * Response time increased immensely, up to 3 minutes per field
+   * Utilizing examples in the prompts didn't help as Llama took info directly out of these examples even when context was adjusted
+   * Non-European model with a slightly more restrictive license, however this would only be an issue with more than 700 million active users per month
+     
+### Simplified approach with single fields
+We shifted to a more simplified prompting approach, using a single field that encapsulated each property. This provided some improvements.
+   * Consistency improved across responses
+   * Response time decreased due to having only one prompt which extracts all information at once
+
+Utilizing both the stronger Llama model and the adjusted prompting approach allowed for better general performance for the extracted information. It's a shame
+we couldn't use examples within the prompts but we needed to make a decision due to the high latency to prompt the model which reduced actual testing time.
+
 ## Usage
 
 ### generate-ipdc endpoint

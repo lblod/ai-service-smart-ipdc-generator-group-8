@@ -25,6 +25,9 @@ Our first attempt involved using Mistral Nemo with complex data structure prompt
    * The content sometimes strayed from the intended purpose, with hallucinations and inconsistencies
    * Fully open-source model and relatively fast response time
 
+We wanted to use Mistral Nemo because it is: fully open source (Apache 2.0 License), trained by a European organisation and somewhat efficient to run on a CPU compared to a larger model.
+Due to the undesirable outputs, we decided that we would at least need to try a different model as well.
+
 ### Transition to Llama 3.1 (70b)
 We tested Llama 3.1 (70b), which yielded significantly better results but still had drawbacks.
    * The content was more aligned with the input text.
@@ -40,6 +43,8 @@ We shifted to a more simplified prompting approach, using a single field that en
 
 Utilizing both the stronger Llama model and the adjusted prompting approach allowed for better general performance for the extracted information. It's a shame
 we couldn't use examples within the prompts but we needed to make a decision due to the high latency to prompt the model which reduced actual testing time.
+
+Due to the use of Llama 3.1, with a more restrictive license (can still be used for commercial purposes as long as number of active users is less than 700 million per month), you can find a disclaimer at the bottom of this ReadME.
 
 ## Usage
 
@@ -63,3 +68,7 @@ class IPDCEntry(BaseModel):
     doelgroep: List[str]
 ```
 where IPDCProcedure, IPDCCost and IPDCCondition correspond to the format defined by ['Instantie'](https://productencatalogus.data.vlaanderen.be/doc/implementatiemodel/ipdc-lpdc/#Instantie).
+
+
+## Use of Llama
+This service was Built with Llama.

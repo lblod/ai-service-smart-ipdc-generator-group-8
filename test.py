@@ -1,5 +1,6 @@
-from src.llm.extract import extract_ipdc_data
+from src.llm.extract import extract_ipdc_information_simple
 from contexttimer import Timer
+import os
 
 TEST_DATA = '''Belasting op het afzetten of
 innemen van de openbare wegenis van 1
@@ -126,6 +127,7 @@ wegenis wordt geregeld, wordt goedgekeurd zoals in bijlage toegevoegd.
 
 
 if __name__ == '__main__':
+    os.environ["OLLAMA_URI"] = 'ollama.hackathon-ai-8.s.redhost.be'
     with Timer() as t:
-        print(extract_ipdc_data(text=TEST_DATA))
+        print(extract_ipdc_information_simple(text=TEST_DATA))
     print(f'Generating responses from the LLM took: {t.elapsed} seconds')

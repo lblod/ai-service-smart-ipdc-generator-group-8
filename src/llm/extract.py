@@ -48,6 +48,10 @@ def extract_ipdc_information_simple(text: str) -> IPDCInformationToExtract:
     return extract_chain.invoke({TEXT_KEY: text})
 
 
+def concat_info(ipdc_info: IPDCInformationToExtract) -> str:
+    return str(ipdc_info.description + ipdc_info.procedures + ipdc_info.costs + ipdc_info.conditions)
+
+
 async def call_classifier(uri: str, text: str) -> List[str]:
     body = {
         'description': text
@@ -67,10 +71,11 @@ async def run_in_thread(sync_function, *args, **kwargs):
 
 async def extract_ipdc_data(text: str) -> IPDCEntry:
     ipdc_information: IPDCInformationToExtract = await run_in_thread(extract_ipdc_information_simple, text=text)
+    concatted_info: str = await run_in_thread(concat_info, ipdc_info=ipdc_information)
     theme, tpe, doelgroep = await asyncio.gather(
-        call_classifier(os.getenv("THEME_CLASSIFIER_URI"), ipdc_information.description),
-        call_classifier(os.getenv("TYPE_CLASSIFIER_URI"), ipdc_information.description),
-        call_classifier(os.getenv("DOELGROEP_CLASSIFIER_URI"), ipdc_information.description)
+        call_classifier(os.getenv("THEME_CLASSIFIER_URI"), concatted_info),
+        call_classifier(os.getenv("TYPE_CLASSIFIER_URI"), concatted_info),
+        call_classifier(os.getenv("DOELGROEP_CLASSIFIER_URI"), concatted_info)
     )
 
     costs = [IPDCCost(description=ipdc_information.costs, name=None)]

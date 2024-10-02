@@ -13,7 +13,7 @@ from functools import partial
 
 
 def _load_llm():
-    return OllamaLLM(model='mistral-nemo', base_url=os.getenv("OLLAMA_URI"), temperature=0.0)
+    return OllamaLLM(model='llama3.1:70b', base_url=os.getenv("OLLAMA_URI"), temperature=0.0)
 
 
 def _create_pydantic_chain(pydantic_object: Type[BaseModel], prompt: str):

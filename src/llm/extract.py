@@ -3,7 +3,7 @@ import asyncio
 from langchain_ollama.llms import OllamaLLM
 from pydantic import BaseModel
 from langchain.output_parsers import PydanticOutputParser
-from typing import Type
+from typing import Type, List
 from langchain_core.prompts import PromptTemplate
 from src.llm.extract_cfg import EXTRACTION_PROMPT, FORMAT_INSTRUCTIONS_KEY, TEXT_KEY
 from src.models import IPDCData, IPDCProcedure, IPDCCostData, IPDCConditionData, IPDCEntry, IPDCCost, IPDCCondition, IPDCProof
@@ -38,7 +38,7 @@ def extract_ipdc_procedure(text: str) -> IPDCProcedure:
     return extract_chain.invoke({TEXT_KEY: text})
 
 
-async def call_classifier(uri: str, text: str) -> list[str]:
+async def call_classifier(uri: str, text: str) -> List[str]:
     body = {
         'description': text
     }

@@ -61,9 +61,10 @@ async def extract_ipdc_data(text: str) -> IPDCEntry:
     cost_data = await run_in_thread(extract_ipdc_costs, text=text)
     condition_data = await run_in_thread(extract_ipdc_conditions, text=text)
     costs = []
-    theme, tpe = await asyncio.gather(
+    theme, tpe, doelgroep = await asyncio.gather(
         call_classifier(os.getenv("THEME_CLASSIFIER_URI"), base_ipdc_data.description),
-        call_classifier(os.getenv("TYPE_CLASSIFIER_URI"), base_ipdc_data.description)
+        call_classifier(os.getenv("TYPE_CLASSIFIER_URI"), base_ipdc_data.description),
+        call_classifier(os.getenv("DOELGROEP_CLASSIFIER_URI"), base_ipdc_data.description)
     )
 
     if cost_data.costs is not None:
@@ -79,5 +80,6 @@ async def extract_ipdc_data(text: str) -> IPDCEntry:
         condition=conditions,
         theme=theme,
         type=tpe,
+        doelgroep=doelgroep
     )
     return ipdc_data

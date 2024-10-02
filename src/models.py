@@ -77,6 +77,7 @@ class IPDCEntry(BaseModel):
     condition: List[IPDCCondition] = []
     theme: List[str]
     type: List[str]
+    doelgroep: List[str]
 
 
 class ProcessingResponse(BaseModel):
